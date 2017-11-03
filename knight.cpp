@@ -19,6 +19,8 @@ END LIST */
 class Square{
 	 
 	 int key;
+   
+   int level;
 	 
 	 Square* opt1;  //Options 1-8, for each potential space the knight can move to.
 	 Square* opt2;
@@ -32,7 +34,7 @@ class Square{
 public:
 	 
    //Default Constructor
-	 Square() {key=-1; opt1=NULL; opt2=NULL; opt3=NULL; opt4=NULL; opt5=NULL; opt6=NULL; opt7=NULL; opt8=NULL; };
+	 Square() {key=-1; level=0; opt1=NULL; opt2=NULL; opt3=NULL; opt4=NULL; opt5=NULL; opt6=NULL; opt7=NULL; opt8=NULL; };
 
    int Key(){return key;}
    
@@ -45,6 +47,8 @@ public:
    Square* Opt7(){return opt7; };
    Square* Opt8(){return opt8; };
    
+   void setKey(int n){ key = n; };
+   void setLevel(int n){ level = n; };
    void setOpt1(Square * link){ opt1 = link; };
    void setOpt2(Square * link){ opt2 = link; };
    void setOpt3(Square * link){ opt3 = link; };
@@ -57,8 +61,54 @@ public:
 };
 
 
+void buildGraph(Square array[][8]){
+  
+  for(int j = 0; j < 8; j++){
+    for(int i = 0; i < 8; i++){
+       cout<<i<<" "<<j<<"\n";
+      array[j][i].setKey(i*8 + j);
+      
+      if(i-2 >= 0 && j-1 >=0)
+        array[i][j].setOpt1(&array[i-2][j-1]);
+      if(i-1 >= 0 && j-2 >=0)
+        array[i][j].setOpt2(&array[i-1][j-2]);
+      if(i+1 >= 0 && j-2 >=0)
+        array[i][j].setOpt3(&array[i+1][j-2]);
+      if(i+2 >= 0 && j-1 >=0)
+        array[i][j].setOpt4(&array[i+2][j-1]);
+      if(i+2 >= 0 && j+1 >=0)
+        array[i][j].setOpt5(&array[i+2][j+1]);
+      if(i+1 >= 0 && j+2 >=0)
+        array[i][j].setOpt6(&array[i+1][j+2]);
+      if(i-1 >= 0 && j+2 >=0)
+        array[i][j].setOpt7(&array[i-1][j+2]);
+      if(i-2 >= 0 && j+1 >=0)
+        array[i][j].setOpt8(&array[i-2][j+1]);
+      
+    }
+  }
+  return;
+}
+
+void shortest(){
+  
+  
+
+}
+
 int main(){
 	
+  
+  int startX = 4;
+  int startY = 6;
+  
+  int goalX = 7;
+  int goalY = 3;
+  
+  Square grid[8][8];
+  
+  buildGraph(grid);
+
 	
 	return 0;
 }
